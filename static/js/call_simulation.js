@@ -35,7 +35,7 @@ $(document).ready(function(){
 	    	chart:{
 	    		title: 'Accumulation des bénéfices'
 	    	},
-	    	height: 500
+	    	height: 500,
 	    };
 
 	    var chart = new google.charts.Line(char_div_elt[0]);

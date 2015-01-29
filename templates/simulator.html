@@ -30,7 +30,7 @@
               <li role="presentation" class="active"><a href="/simulator">Simulateur</a></li>
             </ul>
           </nav>
-          <h3 class="text-muted">Slots Spots</h3>
+          <h3 class="text-muted">Spots et Slots</h3>
         </div>
 
         <div class="row">
@@ -81,14 +81,14 @@
                         <th scope="row">2</th>
                         <td>
                           <div class="row">
-                            <div class="col-xs-offset-5 col-xs-7">
+                            <div class="col-sm-offset-5 col-sm-7">
                               <input type="number" class="form-control" name="duration" min="1" max="5" placeholder="durée">
                             </div>
                           </div>
                         </td>
                         <td>
                           <div class="row">
-                            <div class="col-xs-offset-5 col-xs-7">
+                            <div class="col-sm-offset-5 col-sm-7">
                               <input type="number" class="form-control" name="value" min="1" max="5" placeholder="valeur">
                             </div>
                           </div>
@@ -98,22 +98,30 @@
                     </tbody>
                   </table>
 
-
-                  <p class="text-center">
-                    <button id="execute_simulation_button" type="button" class="btn btn-primary btn-lg" disabled="disabled">
-                      <span class="glyphicon glyphicon-cog"></span>
-                      Lancer la simulation
-                    </button>
-                    <button type="button" class="btn btn-default btn-lg">Reset</button>
-                    <button type="button" class="btn btn-default btn-lg">Données par défaut</button>
-                  </p>
+                  <div class="row">
+                    <div class="col-md-offset-2 col-md-8 col-md-offset-2 text-center">
+                      <button id="execute_simulation_button" type="button" class="btn btn-primary btn-lg" disabled="disabled">
+                        <span class="glyphicon glyphicon-cog"></span>
+                        Lancer la simulation
+                      </button>
+                    </div>
+                  </div>
+                  <div style="height:5px">
+                    
+                  </div>
+                  <div class="row">
+                    <div class="col-md-offset-2 col-md-8 col-md-offset-2 text-center">
+                      <button type="button" class="btn btn-default btn-lg">Reset</button>
+                      <button type="button" class="btn btn-default btn-lg">Données par défaut</button>
+                    </div>
+                  </div>
                 </div>
             </div>
           </div>
         </div>
 
         <div id="result_div" class="row">
-          <div class="col-lg-12">
+          <div class="col-lg-12 text-center">
             <div class="panel panel-default">
               <div class="panel-heading"><h2 class="panel-title">Résultat</h2></div>
                 <div class="panel-body">
