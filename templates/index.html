@@ -1,31 +1,83 @@
 <html>
   <head>
-    <script type="text/javascript" src="https://www.google.com/jsapi"></script>
-    <script type="text/javascript">
-      google.load("visualization", "1", {packages:["corechart"]});
-      google.setOnLoadCallback(drawChart);
-      function drawChart() {
-        var data = google.visualization.arrayToDataTable([
-          ['Director (Year)',  'Rotten Tomatoes', 'IMDB'],
-          ['Alfred Hitchcock (1935)', 8.4,         7.9],
-          ['Ralph Thomas (1959)',     6.9,         6.5],
-          ['Don Sharp (1978)',        6.5,         6.4],
-          ['James Hawes (2008)',      4.4,         6.2]
-        ]); 
 
-        var options = {
-          title: 'The decline of \'The 39 Steps\'',
-          vAxis: {title: 'Accumulated Rating'},
-          isStacked: true
-        };
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="../static/favicon.ico">
 
-        var chart = new google.visualization.SteppedAreaChart(document.getElementById('chart_div'));
+    <title>Slots Spots</title>
 
-        chart.draw(data, options);
-      }
-    </script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="../static/css/jumbotron-narrow.css" >
+
+    <script type="text/javascript" src="http://latex.codecogs.com/latexit.js"></script>
+
+    <script src="//code.jquery.com/jquery-1.11.2.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
   </head>
   <body>
-    <div id="chart_div" style="width: 900px; height: 500px;"></div>
+
+      <div class="container">
+        <div class="header">
+          <nav>
+            <ul class="nav nav-pills pull-right">
+              <li role="presentation" class="active"><a href="/">Accueil</a></li>
+              <li role="presentation"><a href="/simulator">Simulateur</a></li>
+            </ul>
+          </nav>
+          <h3 class="text-muted">Spots et Slots</h3>
+        </div>
+
+        <div class="jumbotron">
+          <h1>Spots publicitaires</h1>
+          <p class="lead">Cras justo odio, dapibus ac facilisis in, egestas eget quam. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</p>
+        </div>
+
+        <div class="row">
+          <div class="col-lg-12">
+            <h3>Réponses au TP</h3>
+
+            <h4>Données du problème</h4>
+            <p>bla bla</p>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-lg-6">
+            <h4>Base de récurence</h4>
+            <p>Bla bla</p>
+            <div lang="latex">
+            \frac{1+sin(x)}{y}
+            </div>
+
+            <h4>Cas général</h4>
+            <p>bla bla</p>
+          </div>
+
+          <div class="col-lg-6">
+            <h4>Matrice</h4>
+            <p>bla bla</p>
+
+            <h4>Complexité</h4>
+            <p>bla bla</p>
+          </div>
+        </div>
+
+        <footer class="footer">
+          <p>© Harrison LEDOUX 2015</p>
+        </footer>
+
+      </div> <!-- /container -->
   </body>
+
 </html>
