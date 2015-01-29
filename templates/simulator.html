@@ -34,86 +34,92 @@
         </div>
 
         <div class="row">
-          <div class="col-lg-12">
-            <h2>Données de simulation</h2>
-            
-            <div class="row">
-                <div class="col-xs-12 col-sm-4">
-                  <h4>Slot</h4>
-                  <div class="form-group">
-                    <label for="slot_duration_input">Durée du slot</label>
-                    <input type="number" class="form-control" id="slot_duration_input" placeholder="">
+          <div class=" col-lg-12">
+            <div class="panel panel-default">
+              <div class="panel-heading"><h2 class="panel-title">Données de simulation</h2></div>
+                <div class="panel-body">
+                  <div class="row">
+                      <div class="col-xs-12 col-sm-4">
+                        <h4>Slot</h4>
+                        <div class="form-group">
+                          <label for="slot_duration_input">Durée du slot</label>
+                          <input type="number" class="form-control" id="slot_duration_input" placeholder="">
+                        </div>
+                      </div>
                   </div>
+
+                  <h4>Spots enregistrés</h4>
+                  <table class="table">
+                    <thead>
+                      <tr>
+                        <th class="col-xs-1">#</th>
+                        <th class="col-xs-5 text-center">Durée</th>
+                        <th class="col-xs-5 text-center">Valeur</th>
+                        <th class="col-xs-1"></th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <th scope="row">0</th>
+                        <td class="text-right">20</td>
+                        <td class="text-right">25</td>
+                        <td><button type="button" class="btn glyphicon glyphicon-minus"></button></td>
+                      </tr>
+                      <tr>
+                        <th scope="row">1</th>
+                        <td class="text-right">20</td>
+                        <td class="text-right">25</td>
+                        <td><button type="button" class="btn glyphicon glyphicon-minus"></button></td>
+                      </tr>
+                      <tr>
+                        <th scope="row">2</th>
+                        <td class="text-right">70</td>
+                        <td class="text-right">65</td>
+                        <td><button type="button" class="btn glyphicon glyphicon-minus"></button></td>
+                      </tr>
+                      <tr>
+                        <th scope="row">2</th>
+                        <td>
+                          <div class="row">
+                            <div class="col-xs-offset-5 col-xs-7">
+                              <input type="number" class="form-control" name="duration" min="1" max="5" placeholder="durée">
+                            </div>
+                          </div>
+                        </td>
+                        <td>
+                          <div class="row">
+                            <div class="col-xs-offset-5 col-xs-7">
+                              <input type="number" class="form-control" name="value" min="1" max="5" placeholder="valeur">
+                            </div>
+                          </div>
+                        </td>
+                        <td><button type="button" class="btn glyphicon glyphicon-plus"></button></td>
+                      </tr>
+                    </tbody>
+                  </table>
+
+
+                  <p class="text-center">
+                    <button id="execute_simulation_button" type="button" class="btn btn-primary btn-lg" disabled="disabled">
+                      <span class="glyphicon glyphicon-cog"></span>
+                      Lancer la simulation
+                    </button>
+                    <button type="button" class="btn btn-default btn-lg">Reset</button>
+                    <button type="button" class="btn btn-default btn-lg">Données par défaut</button>
+                  </p>
                 </div>
             </div>
-
-            <h4>Spots enregistrés</h4>
-            <table class="table">
-              <thead>
-                <tr>
-                  <th class="col-xs-1">#</th>
-                  <th class="col-xs-5 text-center">Durée</th>
-                  <th class="col-xs-5 text-center">Valeur</th>
-                  <th class="col-xs-1"></th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <th scope="row">0</th>
-                  <td class="text-right">20</td>
-                  <td class="text-right">25</td>
-                  <td><button type="button" class="btn glyphicon glyphicon-minus"></button></td>
-                </tr>
-                <tr>
-                  <th scope="row">1</th>
-                  <td class="text-right">20</td>
-                  <td class="text-right">25</td>
-                  <td><button type="button" class="btn glyphicon glyphicon-minus"></button></td>
-                </tr>
-                <tr>
-                  <th scope="row">2</th>
-                  <td class="text-right">70</td>
-                  <td class="text-right">65</td>
-                  <td><button type="button" class="btn glyphicon glyphicon-minus"></button></td>
-                </tr>
-                <tr>
-                  <th scope="row">2</th>
-                  <td>
-                    <div class="row">
-                      <div class="col-xs-offset-5 col-xs-7">
-                        <input type="number" class="form-control" name="duration" min="1" max="5" placeholder="durée">
-                      </div>
-                    </div>
-                  </td>
-                  <td>
-                    <div class="row">
-                      <div class="col-xs-offset-5 col-xs-7">
-                        <input type="number" class="form-control" name="value" min="1" max="5" placeholder="valeur">
-                      </div>
-                    </div>
-                  </td>
-                  <td><button type="button" class="btn glyphicon glyphicon-plus"></button></td>
-                </tr>
-              </tbody>
-            </table>
-
-
-            <p class="text-center">
-              <button id="execute_simulation_button" type="button" class="btn btn-primary btn-lg" disabled="disabled">
-                <span class="glyphicon glyphicon-cog"></span>
-                Lancer la simulation
-              </button>
-              <button type="button" class="btn btn-default btn-lg">Reset</button>
-              <button type="button" class="btn btn-default btn-lg">Données par défaut</button>
-            </p>
-            
           </div>
         </div>
 
         <div id="result_div" class="row">
           <div class="col-lg-12">
-            <h2>Résultat</h2>
-            <div id="chart_div"></div>
+            <div class="panel panel-default">
+              <div class="panel-heading"><h2 class="panel-title">Résultat</h2></div>
+                <div class="panel-body">
+                  <div id="chart_div"></div>
+                </div>
+            </div>
           </div>
         </div>
 
