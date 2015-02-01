@@ -101,11 +101,35 @@
 			}
 		},
 
+		// ******* AJAX ********
+		submit_data : function(action_url, slot_duration, spots){
+			$.ajax({
+				type: 'POST',
+				contentType: 'application/json',
+				data: JSON.stringify({
+					slot_duration: slot_duration,
+					data_spots : spots
+				}),
+				dataType: 'json',
+				url: action_url,
+				success: function (ret) { Simulator.data_manager.receive_result(ret) }
+			});
+		},
+		receive_result : function(ret){
+			var line_chart = this.generate_line_result(
+				ret.max_benef, 
+				ret.sub_spots, 
+				$("<div></div>").addClass("chart"));
+
+			$("#result_div .panel-body").append(line_chart);
+			$("#result_div").show();
+		},
+
 		// ******* HTML ********
 		add_spot_row : function(spot_id, spot_duration, spot_value){
 			var $spot_row_id = $("<th></th>").html(spot_id)
 					.addClass( "hidden-xs" )
-				.attr("scope", "row");
+				.attr("scope", "row");8
 
 			var $spot_row_duration = $("<td></td>").html(spot_duration)
 			.addClass( "text-right" );
@@ -139,13 +163,62 @@
 		},
 
 		// ******* CHARTS ********
-		load_treemap_result : function(){
+		generate_line_result : function(max_benef, sub_spots, $div_elt){
+			var values_array = [];
+			var max_benef_cumulated_value = 0;
+			var j = 1;
+			$.each(sub_spots, function(key, spot) {
+				max_benef_cumulated_value += spot.value;
+				for (var i = 0; i < spot.duration; i++) { 
+				    values_array.push([j, max_benef_cumulated_value]);
+				    j++;
+				}
+			}); 
 
+			var data = new  google.visualization.DataTable();
+			data.addColumn('number', 'Secondes');
+			data.addColumn('number', 'Bénéfice');
+			data.addRows(values_array);
+
+			var options = {
+				chart:{
+					title: 'Accumulation des bénéfices'
+				},
+				height: 500,
+			};
+
+			var chart = new google.charts.Line($div_elt[0]);
+			chart.draw(data, options);
+
+			return $div_elt[0];
+		},
+		generate_treemap_result : function(max_benef, sub_spots, $div_elt){
+			var values_array = [
+				['Spot', 'Parent', 'Duration (size)', 'Value (color)'],
+				['Répartition des valeurs', null, 0, 0],
+			];
+			$.each(sub_spots, function(key, spot) {
+				values_array.push(['spot ' + spot.id, 'Répartition des valeurs', spot.duration, spot.value]);
+			}); 
+
+			var data = new  google.visualization.arrayToDataTable(values_array);
+			var tree = new google.visualization.TreeMap($div_elt[0]);
+			tree.draw(data, {
+				minColor: '#a2e3ff',
+				midColor: '#55ccff',
+				maxColor: '#08b5ff',
+				headerHeight: 0,
+				fontColor: '#112833',
+				showScale: true
+			});
+
+			return $div_elt[0];
 		}
 	};
 
 	Simulator.data_manager = new Simulator.DataManager();
 
+	// ******* FORM BUTTONS ********
 	$("#empty_button").click(function(){
 		Simulator.data_manager.empty_table();
 	});
@@ -167,4 +240,12 @@
 		Simulator.data_manager.load_default();
 	});
 
+	$("#slot_form").submit(function(event){
+		event.preventDefault();
+		Simulator.data_manager.submit_data(
+			$(this).attr('action'), 
+			$(this).find("input[name='slot_duration_input']").val(),
+			Simulator.data_manager.current_data
+		);
+	});
 }(window.jQuery, window.Simulator = window.Simulator || {}));

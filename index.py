@@ -13,7 +13,7 @@ class ContextFilter(logging.Filter):
 	def filter(self, record):
 		record.hostname = ContextFilter.hostname
 		return True
-	
+
 app = Flask(__name__)
 
 @app.route('/')
@@ -28,8 +28,6 @@ def simulator():
 def simulator_execute():
 
 	res = {}
-	app.logger.warning('Warning')
-	app.logger.error('Error')
 
 	if request.method == 'POST':
 		json_data_string = json.dumps(request.json, indent=4)
@@ -56,10 +54,7 @@ if __name__ == '__main__':
 	app.logger.addFilter(f)
 
 	syslog = SysLogHandler(address=('logs2.papertrailapp.com', 30280))
-	formatter = logging.Formatter('%(asctime)s %(hostname)s YOUR_APP %(message)s', datefmt='%Y-%m-%dT%H:%M:%S')
-
-	#handler = RotatingFileHandler('info.log', maxBytes=10000, backupCount=1)
-   	#app.logger.addHandler(handler)
+	formatter = logging.Formatter('%(asctime)s %(hostname)s slots_spots_local %(message)s', datefmt='%Y-%m-%dT%H:%M:%S')
 
    	syslog.setFormatter(formatter)
 	app.logger.addHandler(syslog)
