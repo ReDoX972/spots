@@ -2,10 +2,18 @@ import os
 import slots_spots_algo
 import json, ast
 import logging
-from logging.handlers import RotatingFileHandler
+import socket 
+from logging.handlers import SysLogHandler
 
 from flask import Flask, request, render_template, jsonify
 
+class ContextFilter(logging.Filter):
+	hostname = socket.gethostname()
+	
+	def filter(self, record):
+		record.hostname = ContextFilter.hostname
+		return True
+	
 app = Flask(__name__)
 
 @app.route('/')
@@ -44,8 +52,20 @@ def simulator_execute():
 	return jsonify(res)
 
 if __name__ == '__main__':
-	handler = RotatingFileHandler('info.log', maxBytes=10000, backupCount=1)
-   	app.logger.addHandler(handler)
+	f = ContextFilter()
+	app.logger.addFilter(f)
+
+	syslog = SysLogHandler(address=('logs2.papertrailapp.com', 30280))
+	formatter = logging.Formatter('%(asctime)s %(hostname)s YOUR_APP %(message)s', datefmt='%Y-%m-%dT%H:%M:%S')
+
+	#handler = RotatingFileHandler('info.log', maxBytes=10000, backupCount=1)
+   	#app.logger.addHandler(handler)
+
+   	syslog.setFormatter(formatter)
+	app.logger.addHandler(syslog)
+
+	app.logger.info("This is a message")
 
    	port = int(os.environ.get("PORT", 5000))
    	app.run(host='0.0.0.0', port=port)
+

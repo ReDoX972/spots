@@ -156,7 +156,7 @@
 		
 		if(!isNaN(spot_duration) && !isNaN(spot_value) && spot_duration > 0 && spot_value >0){
 			Simulator.data_manager.add_spot(spot_duration, spot_value);
-			$("input[name='new_spot_duration']").focus();
+			$("input[name='new_spot_duration']").focus(); 
 		}
 
 		$("input[name='new_spot_duration']").val("");
