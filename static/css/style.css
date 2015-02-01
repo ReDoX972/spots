@@ -1,3 +1,14 @@
-#result_div{
+.hidden_elt{
 	display: none;
+}
+
+#slot_duration_view{
+	line-height: 20px;
+	padding: 7px 13px;
+}
+
+.vcenter {
+    display: inline-block;
+    vertical-align: middle;
+    float: none;
 }

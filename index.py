@@ -1,9 +1,10 @@
 import os
 import slots_spots_algo
+import json, ast
+import logging
+from logging.handlers import RotatingFileHandler
 
-from flask import Flask
-from flask import render_template
-from flask import jsonify
+from flask import Flask, request, render_template, jsonify
 
 app = Flask(__name__)
 
@@ -15,22 +16,36 @@ def index():
 def simulator():
     return render_template('simulator.html')
 
-@app.route('/simulator/execute')
+@app.route('/simulator/execute', methods=['GET','POST'])
 def simulator_execute():
 
-	# TODO : parse JSON to list
-	data_spots = [(0,20,25),(1,20,25),(2,70,65),(3,10,15),(4,10,5),(5,40,35),(6,10,15),(7,80,75),(8,10,15),(9,40,45)]
-	slot_duration = 100;
+	res = {}
+	app.logger.warning('Warning')
+	app.logger.error('Error')
 
-	max_benef, sub_spots = slots_spots_algo.compute_max_benef(data_spots, slot_duration)
+	if request.method == 'POST':
+		json_data_string = json.dumps(request.json, indent=4)
+		json_data_dict = ast.literal_eval(json_data_string)
 
-	res = {'max_benef': max_benef, 'sub_plots': sub_spots}
+		slot_duration = json_data_dict["slot_duration"]
+		data_spots = []
+		for spot in json_data_dict["data_spots"]:
+			data_spots.append((spot['id'], spot['duration'], spot['value']))
+			app.logger.warning(data_spots);
+
+		max_benef, sub_spots = slots_spots_algo.compute_max_benef(data_spots, slot_duration)
+
+		sub_spots_json = []
+		for spot in sub_spots:
+			sub_spots_json.append({'id' : spot[0], 'duration' : spot[1], 'value' : spot[2]})
+
+		res = {'max_benef': max_benef, 'sub_spots': sub_spots_json}
     
-
-	# TODO : parse returned list (sub_plots) to JSON
 	return jsonify(res)
 
 if __name__ == '__main__':
-    port = int(os.environ.get("PORT", 5000))
-    app.run(host='0.0.0.0', port=port)
-    app.run()
+	handler = RotatingFileHandler('info.log', maxBytes=10000, backupCount=1)
+   	app.logger.addHandler(handler)
+
+   	port = int(os.environ.get("PORT", 5000))
+   	app.run(host='0.0.0.0', port=port)
