@@ -84,6 +84,7 @@
 		},
 		empty_table : function(){
 			this.current_data = [];
+			this.next_id = 0;
 			$(".spot_row").remove();
 		},
 		load_default : function(){
@@ -150,11 +151,12 @@
 	});
 
 	$("#add_spot_button").click(function(){
-		var spot_duration = $("input[name='new_spot_duration']").val();
-		var spot_value = $("input[name='new_spot_value']").val();
+		var spot_duration = parseInt($("input[name='new_spot_duration']").val());
+		var spot_value = parseInt($("input[name='new_spot_value']").val());
 		
-		if(!isNaN(spot_duration) && !isNaN(spot_value) && spot_duration > 0 && spot_value >=0){
+		if(!isNaN(spot_duration) && !isNaN(spot_value) && spot_duration > 0 && spot_value >0){
 			Simulator.data_manager.add_spot(spot_duration, spot_value);
+			$("input[name='new_spot_duration']").focus();
 		}
 
 		$("input[name='new_spot_duration']").val("");
