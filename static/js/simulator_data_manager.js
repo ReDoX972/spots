@@ -194,6 +194,7 @@
 
 			var options = {
 				height: 500,
+				width: $div_elt.width()
 			};
 
 			var chart = new google.charts.Line($div_elt[0]);
