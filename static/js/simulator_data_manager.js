@@ -123,6 +123,7 @@
 				ret.sub_spots, 
 				$("#linechart_container"));
 
+			$("#levelbox_container").empty();
 			var levelbox_chart = this.generate_levelbox_result(
 				ret.max_benef, 
 				ret.sub_spots, 
