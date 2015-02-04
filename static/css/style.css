@@ -12,3 +12,9 @@
     vertical-align: middle;
     float: none;
 }
+
+.levelbox_spot{
+	background:#3399ff; 
+	width:40%; height:45px; 
+	border: 1px solid #0a1e33;
+}

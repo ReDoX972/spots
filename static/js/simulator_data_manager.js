@@ -116,12 +116,18 @@
 			});
 		},
 		receive_result : function(ret){
+			$("#treemap_container").addClass("chart");
+
 			var line_chart = this.generate_line_result(
 				ret.max_benef, 
 				ret.sub_spots, 
-				$("<div></div>").addClass("chart"));
+				$("#linechart_container"));
 
-			$("#result_div .panel-body").append(line_chart);
+			var levelbox_chart = this.generate_levelbox_result(
+				ret.max_benef, 
+				ret.sub_spots, 
+				$("#levelbox_container"));
+
 			$("#result_div").show();
 		},
 
@@ -167,6 +173,11 @@
 			var values_array = [];
 			var max_benef_cumulated_value = 0;
 			var j = 1;
+
+			var sub_spots = sub_spots.slice(0).sort(function(a, b) {
+			   return a.value - b.value;
+			});
+
 			$.each(sub_spots, function(key, spot) {
 				max_benef_cumulated_value += spot.value;
 				for (var i = 0; i < spot.duration; i++) { 
@@ -181,9 +192,6 @@
 			data.addRows(values_array);
 
 			var options = {
-				chart:{
-					title: 'Accumulation des bénéfices'
-				},
 				height: 500,
 			};
 
@@ -213,6 +221,50 @@
 			});
 
 			return $div_elt[0];
+		},
+		generate_levelbox_result : function(max_benef, sub_spots, $div_elt){
+			var total_spots_duration = 0;
+			var spot_max_value = 0;
+			var max_spot_px_height_representation = 50.0;
+
+			var sub_spots = sub_spots.slice(0).sort(function(a, b) {
+			   return b.value - a.value;
+			});
+
+			$.each(sub_spots, function(key, spot) {
+				total_spots_duration += spot.duration;
+				if(spot.value > spot_max_value)
+					spot_max_value = spot.value;
+			});
+
+			var $title = $("<h4>Répartition durée/valeur</h4>")
+			$div_elt.append($title);
+
+			$.each(sub_spots, function(key, spot) {
+				var spot_duration_percent = 100.0 * spot.duration / total_spots_duration;
+				var spot_relative_max_val_ratio = spot.value / spot_max_value;
+				var spot_color_hexa = tinycolor("hsv 210 "+ spot_relative_max_val_ratio + " 1").toHex();
+
+				
+
+				var $wrapper = $("<div></div>")
+					.addClass("pull-left text-center")
+					.css("width", spot_duration_percent + "%")
+					.css("margin-left", "-1px");
+
+				var $label = $("<p></p>")
+					.html(spot.id);
+
+				var $tmpspot = $("<div></div>")
+					.addClass("levelbox_spot")
+					.css("width", "100%")
+					.css("height", (spot_relative_max_val_ratio * max_spot_px_height_representation) + "px")
+					.css("background", "#" + spot_color_hexa);
+
+				$wrapper.append($label).append($tmpspot);
+						
+				$div_elt.append($wrapper);
+			}); 
 		}
 	};
 
