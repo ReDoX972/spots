@@ -21,6 +21,8 @@
       <script src="../static/js/html5shiv.min.js"></script>
       <script src="../static/js/respond.min.js"></script>
     <![endif]-->
+
+    <script src="../static/js/jquery-1.11.2.min.js" ></script>
   </head>
   <body>
 
@@ -147,22 +149,7 @@
                     <p>
                       Cette matrice est générée par la fonction suivante :
                     </p>
-                    <div>
-                      <pre class="python" style="font-family:monospace;"><span style="color: #ff7700;font-weight:bold;">def</span> computeM<span style="color: black;">&#40;</span>spots<span style="color: #66cc66;">,</span> T<span style="color: black;">&#41;</span>:
-    N <span style="color: #66cc66;">=</span> <span style="color: #008000;">len</span><span style="color: black;">&#40;</span>spots<span style="color: black;">&#41;</span>
-    M <span style="color: #66cc66;">=</span> <span style="color: black;">&#91;</span><span style="color: black;">&#91;</span><span style="color: #ff4500;">0</span> <span style="color: #ff7700;font-weight:bold;">for</span> t <span style="color: #ff7700;font-weight:bold;">in</span> <span style="color: #008000;">range</span><span style="color: black;">&#40;</span>T+<span style="color: #ff4500;">1</span><span style="color: black;">&#41;</span><span style="color: black;">&#93;</span> <span style="color: #ff7700;font-weight:bold;">for</span> k <span style="color: #ff7700;font-weight:bold;">in</span> <span style="color: #008000;">range</span><span style="color: black;">&#40;</span>N+<span style="color: #ff4500;">1</span><span style="color: black;">&#41;</span><span style="color: black;">&#93;</span>
-&nbsp;
-    <span style="color: #808080; font-style: italic;"># BASE</span>
-    <span style="color: #ff7700;font-weight:bold;">for</span> t <span style="color: #ff7700;font-weight:bold;">in</span> <span style="color: #008000;">range</span><span style="color: black;">&#40;</span>T+<span style="color: #ff4500;">1</span><span style="color: black;">&#41;</span>: M<span style="color: black;">&#91;</span><span style="color: #ff4500;">0</span><span style="color: black;">&#93;</span><span style="color: black;">&#91;</span>t<span style="color: black;">&#93;</span> <span style="color: #66cc66;">=</span> <span style="color: #ff4500;">0</span>
-&nbsp;
-    <span style="color: #ff7700;font-weight:bold;">for</span> k <span style="color: #ff7700;font-weight:bold;">in</span> <span style="color: #008000;">range</span><span style="color: black;">&#40;</span><span style="color: #ff4500;">1</span><span style="color: #66cc66;">,</span> N+<span style="color: #ff4500;">1</span><span style="color: black;">&#41;</span>:
-        <span style="color: #ff7700;font-weight:bold;">for</span> t <span style="color: #ff7700;font-weight:bold;">in</span> <span style="color: #008000;">range</span><span style="color: black;">&#40;</span>T+<span style="color: #ff4500;">1</span><span style="color: black;">&#41;</span>:
-            M<span style="color: black;">&#91;</span>k<span style="color: black;">&#93;</span><span style="color: black;">&#91;</span>t<span style="color: black;">&#93;</span> <span style="color: #66cc66;">=</span> M<span style="color: black;">&#91;</span>k - <span style="color: #ff4500;">1</span><span style="color: black;">&#93;</span><span style="color: black;">&#91;</span>t<span style="color: black;">&#93;</span>
-            <span style="color: #ff7700;font-weight:bold;">if</span> t - spots<span style="color: black;">&#91;</span>k-<span style="color: #ff4500;">1</span><span style="color: black;">&#93;</span><span style="color: black;">&#91;</span><span style="color: #ff4500;">1</span><span style="color: black;">&#93;</span> <span style="color: #66cc66;">&gt;=</span> <span style="color: #ff4500;">0</span>:
-                <span style="color: #ff7700;font-weight:bold;">if</span> M<span style="color: black;">&#91;</span>k - <span style="color: #ff4500;">1</span><span style="color: black;">&#93;</span><span style="color: black;">&#91;</span>t - spots<span style="color: black;">&#91;</span>k-<span style="color: #ff4500;">1</span><span style="color: black;">&#93;</span><span style="color: black;">&#91;</span><span style="color: #ff4500;">1</span><span style="color: black;">&#93;</span><span style="color: black;">&#93;</span> + spots<span style="color: black;">&#91;</span>k-<span style="color: #ff4500;">1</span><span style="color: black;">&#93;</span><span style="color: black;">&#91;</span><span style="color: #ff4500;">2</span><span style="color: black;">&#93;</span> <span style="color: #66cc66;">&gt;</span> M<span style="color: black;">&#91;</span>k<span style="color: black;">&#93;</span><span style="color: black;">&#91;</span>t<span style="color: black;">&#93;</span>:
-                    M<span style="color: black;">&#91;</span>k<span style="color: black;">&#93;</span><span style="color: black;">&#91;</span>t<span style="color: black;">&#93;</span> <span style="color: #66cc66;">=</span> M<span style="color: black;">&#91;</span>k - <span style="color: #ff4500;">1</span><span style="color: black;">&#93;</span><span style="color: black;">&#91;</span>t - spots<span style="color: black;">&#91;</span>k-<span style="color: #ff4500;">1</span><span style="color: black;">&#93;</span><span style="color: black;">&#91;</span><span style="color: #ff4500;">1</span><span style="color: black;">&#93;</span><span style="color: black;">&#93;</span> + spots<span style="color: black;">&#91;</span>k-<span style="color: #ff4500;">1</span><span style="color: black;">&#93;</span><span style="color: black;">&#91;</span><span style="color: #ff4500;">2</span><span style="color: black;">&#93;</span>
-&nbsp;
-    <span style="color: #ff7700;font-weight:bold;">return</span> M</pre>
+                    <div id="computeM_code_container">
                     </div>
                     <h4>Complexité</h4>
                     <p>Ce calcul est de complexité <span lang="latex">$\mathcal{O}(n^2)$</span></p>
@@ -173,15 +160,7 @@
                   <div class="col-sm-12">
                     <h4>Affichage des sous-ensembles</h4>
                     <p>Fonction d'affichage</p>
-                    <div>
-                      <pre class="python" style="font-family:monospace;"><span style="color: #ff7700;font-weight:bold;">def</span> getBestSet<span style="color: black;">&#40;</span>k<span style="color: #66cc66;">,</span> t<span style="color: #66cc66;">,</span> M<span style="color: #66cc66;">,</span> spots<span style="color: black;">&#41;</span>:
-    <span style="color: #ff7700;font-weight:bold;">if</span> k<span style="color: #66cc66;">==</span><span style="color: #ff4500;">0</span>: 
-        <span style="color: #ff7700;font-weight:bold;">return</span> <span style="color: black;">&#91;</span><span style="color: black;">&#93;</span>
-    <span style="color: #ff7700;font-weight:bold;">elif</span> M<span style="color: black;">&#91;</span>k<span style="color: black;">&#93;</span><span style="color: black;">&#91;</span>t<span style="color: black;">&#93;</span> <span style="color: #66cc66;">==</span>  M<span style="color: black;">&#91;</span>k-<span style="color: #ff4500;">1</span><span style="color: black;">&#93;</span><span style="color: black;">&#91;</span>t<span style="color: black;">&#93;</span> :
-        <span style="color: #ff7700;font-weight:bold;">return</span> getBestSet<span style="color: black;">&#40;</span>k-<span style="color: #ff4500;">1</span><span style="color: #66cc66;">,</span>t<span style="color: #66cc66;">,</span>M<span style="color: #66cc66;">,</span>spots<span style="color: black;">&#41;</span> 
-    <span style="color: #ff7700;font-weight:bold;">else</span> :
-        <span style="color: #008000;">id</span><span style="color: #66cc66;">,</span> d<span style="color: #66cc66;">,</span> v <span style="color: #66cc66;">=</span> spots<span style="color: black;">&#91;</span>k-<span style="color: #ff4500;">1</span><span style="color: black;">&#93;</span>
-        <span style="color: #ff7700;font-weight:bold;">return</span> getBestSet<span style="color: black;">&#40;</span>k-<span style="color: #ff4500;">1</span><span style="color: #66cc66;">,</span>t-d<span style="color: #66cc66;">,</span>M<span style="color: #66cc66;">,</span>spots<span style="color: black;">&#41;</span> + <span style="color: black;">&#91;</span><span style="color: black;">&#40;</span>k-<span style="color: #ff4500;">1</span><span style="color: #66cc66;">,</span>d<span style="color: #66cc66;">,</span>v<span style="color: black;">&#41;</span><span style="color: black;">&#93;</span></pre>
+                    <div id="display_result_code_container">
                     </div>
                   </div>
                 </div>
@@ -199,6 +178,12 @@
 
       </div> <!-- /container -->
 
+      <script> 
+        $(function(){
+          $("#computeM_code_container").load("../static/html/func_computeM.html"); 
+          $("#display_result_code_container").load("../static/html/func_disp_result.html"); 
+        });
+      </script> 
   </body>
 
 </html>
