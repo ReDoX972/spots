@@ -36,46 +36,156 @@
         </div>
 
         <div class="jumbotron">
-          <h1>Spots publicitaires</h1>
-          <p class="lead">TEST Cras justo odio, dapibus ac facilisis in, egestas eget quam. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</p>
+          <h1>Problème des spots publicitaires</h1>
+          <p class="lead">
+            Illustration et résolution du problème qui vise à trouver un sous-ensemble de spots de valeur maximale pour une durée de diffusion minimale.
+          </p>
         </div>
 
         <div class="row">
           <div class="col-md-12">
             <div class="panel panel-default">
               <div class="panel-heading">
-                <h2 class="panel-title">Réponses au TP</h2>
+                <h2 class="panel-title">Explications</h2>
               </div>
               <div class="panel-body">
 
                 <div class="row">
                   <div class="col-md-12">
                     <h4>Données du problème</h4>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum</p>
+                    <p>
+                      La société BrainStuffing, société de diffusion de publicités télévisuelles, a acheté un intervalle
+                      de temps <span lang="latex">T</span> (un slot) à la chaîne de télévision TubeFeed1 dans lequel elle diffusera des publicités (des spots) que
+                      ses clients lui ont confiées. 
+                    </p>
+                    <p>
+                      Son carnet de commandes contient <span lang="latex">K</span> spots. Le spot <span lang="latex">k, 0 \leq k \leq K</span>, est de durée <span lang="latex">d(k)</span>.
+                      La diffusion du spot k apporte un gain <span lang="latex">g(k)</span> à la société BrainStuffing.
+                    </p>
+                    <p>
+                      Justine, étudiante à l’Esiee, est en stage dans cette société. Lors d’une pause-café elle observe le travail de
+                      l’ingénieur commercial de BrainStuffing : il classe les spots par gains décroissants et les sélectionne dans cet ordre
+                      pour remplir le slot. À chaque étape il ajoute au slot le premier spot dont la durée est inférieure ou égale au temps
+                      encore disponible dans le slot. 
+                    </p>
+                    <p>
+                      Les données du problème sont accessibles via l'onglet <a href="/simulator">simulation</a> 
+                    </p>
                   </div>
                 </div>
 
                 <div class="row">
-                  <div class="col-md-6">
-                    <h4>Base de récurence</h4>
-                    <p>Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt.</p>
-                    <div lang="latex">
-                    \frac{1+sin(x)}{y}
-                    </div>
-
-                    <h4>Cas général</h4>
-                    <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.   </p>
+                  <div class="col-md-12">
+                    <h4>Gain de l'ingénieur commercial</h4>
+                    <p>
+                      Le gain apporté par la méthode de l'ingénieur qui consiste à trier le spots par gain décroissant et à sélectionner les premiers est de <span lang="latex">100</span>.
+                    </p>
                   </div>
+                </div>
 
-                  <div class="col-md-6">
+                <div class="row">
+                  <div class="col-md-12">
+                    <h4>Méthode de justine</h4>
+                    <p>
+                      Justine a suivi l’excellent cours d’algorithmique de son école d’ingénieurs. Elle se dit qu’elle peut obtenir un gain
+                      supérieur. Ayant fini de faire les photocopies de la matinée, Justine se propose d’écrire une équation de récurrence
+                      qui lui permettra de calculer le gain maximum du carnet de commandes. 
+                    </p>
+                    <p>
+                      Elle note <span lang="latex">m(k,t)</span> le gain maximum
+                      qu’elle peut obtenir pour un slot de durée t dans lequel la société BrainStuffing diffuserait des spots choisis dans
+                      le sous-ensemble des k premiers spots.
+                    </p>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-sm-12">
+                    <h4>Base de récurence</h4>
+                    <div lang="latex">
+                    \\
+                    \forall t, 0 \leq t \leq T, \notag \\
+                    m(0,t) = 0 \notag
+                    </div>
+                    <p></p>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-sm-12">
+                    <h4>Cas général</h4>
+                    <div lang="latex">
+                    \\
+                    \forall k, 1 \leq k \leq K, \notag \\
+                    \forall t, 0 \leq t \leq T, \notag \\
+                      m(k, t) = max \left\{
+                      \begin{array}{l}
+                        m(k-1, t-d(k-1)) + g(k-1) \\
+                        m(k-1, t) \\
+                      \end{array}
+                    \right.
+                    </div>
+                    <p></p>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-md-12">
                     <h4>Matrice</h4>
-                    <p>Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem.</p>
-
+                    <p>
+                      Matrice <span lang="latex">M[0::K][0::T ]</span> de terme général <span lang="latex">M[k][t] = m(k, t)</span>
+                    </p>
+                    <div lang="latex">
+                    M_{k,t} =
+                     \begin{pmatrix}
+                      m_{0,0} & m_{0,t} & \cdots & m_{0,T} \\
+                      m_{k,0} & m_{1,1} & \cdots & m_{1,T} \\
+                      \vdots  & \vdots  & \ddots & \vdots  \\
+                      m_{K,0} & m_{K,1} & \cdots & m_{K,T}
+                     \end{pmatrix}
+                    </div>
+                    <p>
+                      Cette matrice est générée par la fonction suivante :
+                    </p>
+                    <div>
+                      <pre class="python" style="font-family:monospace;"><span style="color: #ff7700;font-weight:bold;">def</span> computeM<span style="color: black;">&#40;</span>spots<span style="color: #66cc66;">,</span> T<span style="color: black;">&#41;</span>:
+    N <span style="color: #66cc66;">=</span> <span style="color: #008000;">len</span><span style="color: black;">&#40;</span>spots<span style="color: black;">&#41;</span>
+    M <span style="color: #66cc66;">=</span> <span style="color: black;">&#91;</span><span style="color: black;">&#91;</span><span style="color: #ff4500;">0</span> <span style="color: #ff7700;font-weight:bold;">for</span> t <span style="color: #ff7700;font-weight:bold;">in</span> <span style="color: #008000;">range</span><span style="color: black;">&#40;</span>T+<span style="color: #ff4500;">1</span><span style="color: black;">&#41;</span><span style="color: black;">&#93;</span> <span style="color: #ff7700;font-weight:bold;">for</span> k <span style="color: #ff7700;font-weight:bold;">in</span> <span style="color: #008000;">range</span><span style="color: black;">&#40;</span>N+<span style="color: #ff4500;">1</span><span style="color: black;">&#41;</span><span style="color: black;">&#93;</span>
+&nbsp;
+    <span style="color: #808080; font-style: italic;"># BASE</span>
+    <span style="color: #ff7700;font-weight:bold;">for</span> t <span style="color: #ff7700;font-weight:bold;">in</span> <span style="color: #008000;">range</span><span style="color: black;">&#40;</span>T+<span style="color: #ff4500;">1</span><span style="color: black;">&#41;</span>: M<span style="color: black;">&#91;</span><span style="color: #ff4500;">0</span><span style="color: black;">&#93;</span><span style="color: black;">&#91;</span>t<span style="color: black;">&#93;</span> <span style="color: #66cc66;">=</span> <span style="color: #ff4500;">0</span>
+&nbsp;
+    <span style="color: #ff7700;font-weight:bold;">for</span> k <span style="color: #ff7700;font-weight:bold;">in</span> <span style="color: #008000;">range</span><span style="color: black;">&#40;</span><span style="color: #ff4500;">1</span><span style="color: #66cc66;">,</span> N+<span style="color: #ff4500;">1</span><span style="color: black;">&#41;</span>:
+        <span style="color: #ff7700;font-weight:bold;">for</span> t <span style="color: #ff7700;font-weight:bold;">in</span> <span style="color: #008000;">range</span><span style="color: black;">&#40;</span>T+<span style="color: #ff4500;">1</span><span style="color: black;">&#41;</span>:
+            M<span style="color: black;">&#91;</span>k<span style="color: black;">&#93;</span><span style="color: black;">&#91;</span>t<span style="color: black;">&#93;</span> <span style="color: #66cc66;">=</span> M<span style="color: black;">&#91;</span>k - <span style="color: #ff4500;">1</span><span style="color: black;">&#93;</span><span style="color: black;">&#91;</span>t<span style="color: black;">&#93;</span>
+            <span style="color: #ff7700;font-weight:bold;">if</span> t - spots<span style="color: black;">&#91;</span>k-<span style="color: #ff4500;">1</span><span style="color: black;">&#93;</span><span style="color: black;">&#91;</span><span style="color: #ff4500;">1</span><span style="color: black;">&#93;</span> <span style="color: #66cc66;">&gt;=</span> <span style="color: #ff4500;">0</span>:
+                <span style="color: #ff7700;font-weight:bold;">if</span> M<span style="color: black;">&#91;</span>k - <span style="color: #ff4500;">1</span><span style="color: black;">&#93;</span><span style="color: black;">&#91;</span>t - spots<span style="color: black;">&#91;</span>k-<span style="color: #ff4500;">1</span><span style="color: black;">&#93;</span><span style="color: black;">&#91;</span><span style="color: #ff4500;">1</span><span style="color: black;">&#93;</span><span style="color: black;">&#93;</span> + spots<span style="color: black;">&#91;</span>k-<span style="color: #ff4500;">1</span><span style="color: black;">&#93;</span><span style="color: black;">&#91;</span><span style="color: #ff4500;">2</span><span style="color: black;">&#93;</span> <span style="color: #66cc66;">&gt;</span> M<span style="color: black;">&#91;</span>k<span style="color: black;">&#93;</span><span style="color: black;">&#91;</span>t<span style="color: black;">&#93;</span>:
+                    M<span style="color: black;">&#91;</span>k<span style="color: black;">&#93;</span><span style="color: black;">&#91;</span>t<span style="color: black;">&#93;</span> <span style="color: #66cc66;">=</span> M<span style="color: black;">&#91;</span>k - <span style="color: #ff4500;">1</span><span style="color: black;">&#93;</span><span style="color: black;">&#91;</span>t - spots<span style="color: black;">&#91;</span>k-<span style="color: #ff4500;">1</span><span style="color: black;">&#93;</span><span style="color: black;">&#91;</span><span style="color: #ff4500;">1</span><span style="color: black;">&#93;</span><span style="color: black;">&#93;</span> + spots<span style="color: black;">&#91;</span>k-<span style="color: #ff4500;">1</span><span style="color: black;">&#93;</span><span style="color: black;">&#91;</span><span style="color: #ff4500;">2</span><span style="color: black;">&#93;</span>
+&nbsp;
+    <span style="color: #ff7700;font-weight:bold;">return</span> M</pre>
+                    </div>
                     <h4>Complexité</h4>
-                    <p>Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?</p>
+                    <p>Ce calcul est de complexité <span lang="latex">$\mathcal{O}(n^2)$</span></p>
                   </div>
                 </div>
                 
+                <div class="row">
+                  <div class="col-sm-12">
+                    <h4>Affichage des sous-ensembles</h4>
+                    <p>Fonction d'affichage</p>
+                    <div>
+                      <pre class="python" style="font-family:monospace;"><span style="color: #ff7700;font-weight:bold;">def</span> getBestSet<span style="color: black;">&#40;</span>k<span style="color: #66cc66;">,</span> t<span style="color: #66cc66;">,</span> M<span style="color: #66cc66;">,</span> spots<span style="color: black;">&#41;</span>:
+    <span style="color: #ff7700;font-weight:bold;">if</span> k<span style="color: #66cc66;">==</span><span style="color: #ff4500;">0</span>: 
+        <span style="color: #ff7700;font-weight:bold;">return</span> <span style="color: black;">&#91;</span><span style="color: black;">&#93;</span>
+    <span style="color: #ff7700;font-weight:bold;">elif</span> M<span style="color: black;">&#91;</span>k<span style="color: black;">&#93;</span><span style="color: black;">&#91;</span>t<span style="color: black;">&#93;</span> <span style="color: #66cc66;">==</span>  M<span style="color: black;">&#91;</span>k-<span style="color: #ff4500;">1</span><span style="color: black;">&#93;</span><span style="color: black;">&#91;</span>t<span style="color: black;">&#93;</span> :
+        <span style="color: #ff7700;font-weight:bold;">return</span> getBestSet<span style="color: black;">&#40;</span>k-<span style="color: #ff4500;">1</span><span style="color: #66cc66;">,</span>t<span style="color: #66cc66;">,</span>M<span style="color: #66cc66;">,</span>spots<span style="color: black;">&#41;</span> 
+    <span style="color: #ff7700;font-weight:bold;">else</span> :
+        <span style="color: #008000;">id</span><span style="color: #66cc66;">,</span> d<span style="color: #66cc66;">,</span> v <span style="color: #66cc66;">=</span> spots<span style="color: black;">&#91;</span>k-<span style="color: #ff4500;">1</span><span style="color: black;">&#93;</span>
+        <span style="color: #ff7700;font-weight:bold;">return</span> getBestSet<span style="color: black;">&#40;</span>k-<span style="color: #ff4500;">1</span><span style="color: #66cc66;">,</span>t-d<span style="color: #66cc66;">,</span>M<span style="color: #66cc66;">,</span>spots<span style="color: black;">&#41;</span> + <span style="color: black;">&#91;</span><span style="color: black;">&#40;</span>k-<span style="color: #ff4500;">1</span><span style="color: #66cc66;">,</span>d<span style="color: #66cc66;">,</span>v<span style="color: black;">&#41;</span><span style="color: black;">&#93;</span></pre>
+                    </div>
+                  </div>
+                </div>
+
               </div>
             </div>
           </div>
