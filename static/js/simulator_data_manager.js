@@ -116,18 +116,16 @@
 			});
 		},
 		receive_result : function(ret){
-			$("#treemap_container").addClass("chart");
+			var B = ret.max_benef;
+			var P = ret.sub_spots;
+			
+            $("#max_benef_container").empty();
+            $("#subplots_container").empty();
+            $("#scatterchart_container").empty();
 
-			var line_chart = this.generate_line_result(
-				ret.max_benef, 
-				ret.sub_spots, 
-				$("#linechart_container"));
-
-			$("#levelbox_container").empty();
-			var levelbox_chart = this.generate_levelbox_result(
-				ret.max_benef, 
-				ret.sub_spots, 
-				$("#levelbox_container"));
+            this.generate_benef_text(B, P, $("#max_benef_container"));
+			this.generate_subplots_result(B, P, $("#subplots_container"));
+			this.generate_scatterchart(B, P, $("#scatterchart_container"));
 
 			$("#result_div").show();
 		},
@@ -170,103 +168,57 @@
 		},
 
 		// ******* CHARTS ********
-		generate_line_result : function(max_benef, sub_spots, $div_elt){
+		generate_benef_text : function(max_benef, sub_spots, $div_elt){
+			var total_duration = 0;
+
+			$.each(sub_spots, function(key, spot) {
+				total_duration += spot.duration;
+			}); 
+
+			var $text_p = $('<p></p>');
+			$text_p.html('<p>Le gain maximal du sous ensemble est de '+ max_benef +' pour une durée totale de ' + total_duration + '</p>');
+
+			return $div_elt.append($text_p);
+		},
+		generate_subplots_result : function(max_benef, sub_spots, $div_elt){
 			var values_array = [];
 			var max_benef_cumulated_value = 0;
 			var j = 1;
 
 			var sub_spots = sub_spots.slice(0).sort(function(a, b) {
-			   return a.value - b.value;
+			   return a.id - b.id;
 			});
 
 			$.each(sub_spots, function(key, spot) {
-				max_benef_cumulated_value += spot.value;
-				for (var i = 0; i < spot.duration; i++) { 
-				    values_array.push([j, max_benef_cumulated_value]);
-				    j++;
-				}
+				var $spot_div = $('<div class="panel panel-default spot pull-left"></div>');
+				$spot_div.html('<div class="panel-heading"><h3 class="panel-title">' + spot.id + '</h3></div><div class="panel-body"><p>durée ' + spot.duration + '<p><p>valeur ' + spot.value + '<p></div>');
+
+				$div_elt.append($spot_div);
 			}); 
 
-			var data = new  google.visualization.DataTable();
-			data.addColumn('number', 'Secondes');
-			data.addColumn('number', 'Bénéfice');
-			data.addRows(values_array);
-
-			var options = {
-				height: 500,
-				width: $div_elt.width()
-			};
-
-			var chart = new google.charts.Line($div_elt[0]);
-			chart.draw(data, options);
-
-			return $div_elt[0];
+			return $div_elt;
 		},
-		generate_treemap_result : function(max_benef, sub_spots, $div_elt){
-			var values_array = [
-				['Spot', 'Parent', 'Duration (size)', 'Value (color)'],
-				['Répartition des valeurs', null, 0, 0],
-			];
-			$.each(sub_spots, function(key, spot) {
-				values_array.push(['spot ' + spot.id, 'Répartition des valeurs', spot.duration, spot.value]);
-			}); 
-
-			var data = new  google.visualization.arrayToDataTable(values_array);
-			var tree = new google.visualization.TreeMap($div_elt[0]);
-			tree.draw(data, {
-				minColor: '#a2e3ff',
-				midColor: '#55ccff',
-				maxColor: '#08b5ff',
-				headerHeight: 0,
-				fontColor: '#112833',
-				showScale: true
-			});
-
-			return $div_elt[0];
-		},
-		generate_levelbox_result : function(max_benef, sub_spots, $div_elt){
-			var total_spots_duration = 0;
-			var spot_max_value = 0;
-			var max_spot_px_height_representation = 50.0;
-
-			var sub_spots = sub_spots.slice(0).sort(function(a, b) {
-			   return b.value - a.value;
-			});
+		generate_scatterchart : function(max_benef, sub_spots, $div_elt){
+			var values_array = [['Duration', 'Value']];
+			var max_value = 0;
 
 			$.each(sub_spots, function(key, spot) {
-				total_spots_duration += spot.duration;
-				if(spot.value > spot_max_value)
-					spot_max_value = spot.value;
+				values_array.push([spot.duration, spot.value]);
+				if(spot.value > max_value)
+				max_value = spot.value;
 			});
 
-			var $title = $("<h4>Répartition durée/valeur</h4>")
-			$div_elt.append($title);
+			var data = google.visualization.arrayToDataTable(values_array);
 
-			$.each(sub_spots, function(key, spot) {
-				var spot_duration_percent = 100.0 * spot.duration / total_spots_duration;
-				var spot_relative_max_val_ratio = spot.value / spot_max_value;
-				var spot_color_hexa = tinycolor("hsv 210 "+ spot_relative_max_val_ratio + " 1").toHex();
+	        var options = {
+	          hAxis: {title: 'Durée', minValue: 0, maxValue: 100},
+	          vAxis: {title: 'Valeur', minValue: 0, maxValue: max_value},
+	          legend: 'none'
+	        };
 
-				
+	        var chart = new google.visualization.ScatterChart($div_elt[0]);
 
-				var $wrapper = $("<div></div>")
-					.addClass("pull-left text-center")
-					.css("width", spot_duration_percent + "%")
-					.css("margin-left", "-1px");
-
-				var $label = $("<p></p>")
-					.html(spot.id);
-
-				var $tmpspot = $("<div></div>")
-					.addClass("levelbox_spot")
-					.css("width", "100%")
-					.css("height", (spot_relative_max_val_ratio * max_spot_px_height_representation) + "px")
-					.css("background", "#" + spot_color_hexa);
-
-				$wrapper.append($label).append($tmpspot);
-						
-				$div_elt.append($wrapper);
-			}); 
+	        chart.draw(data, options);
 		}
 	};
 

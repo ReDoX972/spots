@@ -22,10 +22,9 @@
 
     <script src="../static/js/jquery-1.11.2.min.js" ></script>
     <script src="../static/js/bootstrap.min.js"></script>
-    <script src="../static/js/tinycolor.js"></script>
 
     <script src="https://www.google.com/jsapi"></script>
-    <script type="text/javascript">google.load("visualization", "1.1", {packages:["line"]}, null);</script>
+    <script type="text/javascript">google.load("visualization", "1", {packages:["corechart"]});</script>
 
   </head>
   <body>
@@ -124,21 +123,28 @@
               <h2 class="panel-title">Résultat</h2>
             </div>
             <div class="panel-body">
-              <div class="row">
-                <div id="levelbox_container" class="col-lg-12">
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-lg-12" style="height:20px">
-                </div>
-              </div>
+
               <div class="row">
                 <div class="col-lg-12">
-                  <h4>Accumulation des bénéfices</h4>
-                  <div id="linechart_container" class="text-center">
-                </div>
+                  <h4>Gain maximal</h4>
+                  <div id="max_benef_container">
+                  </div>
+                  <p></p>
+                  <h4>Sous-ensembles</h4>
+                  <div id="subplots_container">
+                  </div>
+                  <p></p>
                 </div>
               </div>
+
+              <div class="row">
+                <div class="col-lg-12">
+                  <h4>Nuage de points</h4>
+                  <div id="scatterchart_container" class="text-center">
+                  </div>
+                </div>
+              </div>
+
             </div>
           </div>
         </div>
