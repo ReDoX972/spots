@@ -23,3 +23,8 @@
 	width: 100px;
 	margin: 5px 10px;
 }
+
+.latex{
+	max-width: 100%; 
+	height: auto;
+}
