@@ -24,7 +24,7 @@ def getBestSet(k, t, M, spots):
         return getBestSet(k-1,t,M,spots) 
     else :
         id, d, v = spots[k-1]
-        return getBestSet(k-1,t-d,M,spots) + [(k-1,d,v)]
+        return getBestSet(k-1,t-d,M,spots) + [(id,d,v)]
 
 def computeM(spots, T):
     N = len(spots)
