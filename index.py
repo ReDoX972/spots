@@ -1,10 +1,10 @@
 import os
-import slots_spots_algo
 import json, ast
 import socket 
 import utils.log_initializer
 
 from flask import Flask, request, render_template, jsonify
+from algo import slotsspots, stocks
 
 app = Flask(__name__)
 
@@ -12,12 +12,29 @@ app = Flask(__name__)
 def index():
     return render_template('index.html')
 
-@app.route('/simulator')
-def simulator():
-    return render_template('simulator.html')
+@app.route('/stocks/tp')
+def stocks_tp():
+    return render_template('stocks_tp.html')
 
-@app.route('/simulator/execute', methods=['GET','POST'])
-def simulator_execute():
+@app.route('/stocks/simulator')
+def stocks_simulator():
+    return render_template('stocks_simulator.html')
+
+@app.route('/stocks/simulator/execute', methods=['GET','POST'])
+def stocks_simulator_execute():
+    res = { 'secret' : 'GUIGUI IS THE BESTT'}
+    return jsonify(res)
+
+@app.route('/spots/tp')
+def spots_tp():
+    return render_template('spots_tp.html')
+
+@app.route('/spots/simulator')
+def spots_simulator():
+    return render_template('spots_simulator.html')
+
+@app.route('/spots/simulator/execute', methods=['GET','POST'])
+def spots_simulator_execute():
 
     res = {}
 
@@ -30,7 +47,7 @@ def simulator_execute():
         for spot in json_data_dict["data_spots"]:
             data_spots.append((spot['id'], spot['duration'], spot['value']))
             
-        max_benef, sub_spots = slots_spots_algo.compute_max_benef(data_spots, slot_duration)
+        max_benef, sub_spots = slotsspots.compute_max_benef(data_spots, slot_duration)
 
         sub_spots_json = []
         for spot in sub_spots:

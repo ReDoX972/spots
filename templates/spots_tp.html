@@ -1,0 +1,207 @@
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="Harrison Ledoux">
+    <link rel="icon" href="../static/favicon.ico">
+
+    <title>Spots compte rendu</title>
+
+    <link rel="stylesheet" href="../static/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../static/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="../static/css/jumbotron-narrow.css" >
+    <link rel="stylesheet" href="../static/css/style.css" >
+
+    <script type="text/javascript" src="../static/js/latexit.js"></script>
+    
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="../static/js/html5shiv.min.js"></script>
+      <script src="../static/js/respond.min.js"></script>
+    <![endif]-->
+
+    <script src="../static/js/jquery-1.11.2.min.js" ></script>
+    <script src="../static/js/bootstrap.min.js" ></script>
+  </head>
+  <body>
+
+      <div class="container">
+        <div class="header">
+          <nav>
+            <ul class="nav nav-pills pull-right">
+              <li role="presentation" class=""><a href="/">Accueil</a></li>
+              <li role="presentation" class="dropdown active">
+                <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-expanded="false">
+                  Spots <span class="caret"></span>
+                </a>
+                <ul class="dropdown-menu" role="menu">
+                  <li><a href="/spots/tp">Compte rendu de TP</a></li>
+                  <li><a href="/spots/simulator">Simulateur</a></li>
+                </ul>
+              </li>
+              <li role="presentation" class="dropdown">
+                <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-expanded="false">
+                  Stocks <span class="caret"></span>
+                </a>
+                <ul class="dropdown-menu" role="menu">
+                  <li><a href="/stocks/tp">Compte rendu de TP</a></li>
+                  <li><a href="/stocks/simulator">Simulateur</a></li>
+                </ul>
+              </li>
+            </ul>
+          </nav>
+          <h3 class="text-muted">Spots compte rendu</h3>
+        </div>
+
+        <div class="row">
+          <div class="col-md-12">
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h2 class="panel-title">Spots et slots publicitaires</h2>
+              </div>
+              <div class="panel-body">
+
+                <div class="row">
+                  <div class="col-md-12">
+                    <h4>Données du problème</h4>
+                    <p>
+                      La société BrainStuffing, société de diffusion de publicités télévisuelles, a acheté un intervalle
+                      de temps <span lang="latex">T</span> (un slot) à la chaîne de télévision TubeFeed1 dans lequel elle diffusera des publicités (des spots) que
+                      ses clients lui ont confiées. 
+                    </p>
+                    <p>
+                      Son carnet de commandes contient <span lang="latex">K</span> spots. Le spot <span lang="latex">k, 0 \leq k \leq K</span>, est de durée <span lang="latex">d(k)</span>.
+                      La diffusion du spot k apporte un gain <span lang="latex">g(k)</span> à la société BrainStuffing.
+                    </p>
+                    <p>
+                      Justine, étudiante à l’Esiee, est en stage dans cette société. Lors d’une pause-café elle observe le travail de
+                      l’ingénieur commercial de BrainStuffing : il classe les spots par gains décroissants et les sélectionne dans cet ordre
+                      pour remplir le slot. À chaque étape il ajoute au slot le premier spot dont la durée est inférieure ou égale au temps
+                      encore disponible dans le slot. 
+                    </p>
+                    <p>
+                      Les données du problème sont accessibles via l'onglet <a href="/simulator">simulation</a> 
+                    </p>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-md-12">
+                    <h4>Gain de l'ingénieur commercial</h4>
+                    <p>
+                      Le gain apporté par la méthode de l'ingénieur qui consiste à trier le spots par gain décroissant et à sélectionner les premiers est de <span lang="latex">100</span>.
+                    </p>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-md-12">
+                    <h4>Méthode de justine</h4>
+                    <p>
+                      Justine a suivi l’excellent cours d’algorithmique de son école d’ingénieurs. Elle se dit qu’elle peut obtenir un gain
+                      supérieur. Ayant fini de faire les photocopies de la matinée, Justine se propose d’écrire une équation de récurrence
+                      qui lui permettra de calculer le gain maximum du carnet de commandes. 
+                    </p>
+                    <p>
+                      Elle note <span lang="latex">m(k,t)</span> le gain maximum
+                      qu’elle peut obtenir pour un slot de durée t dans lequel la société BrainStuffing diffuserait des spots choisis dans
+                      le sous-ensemble des k premiers spots.
+                    </p>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-sm-12">
+                    <h4>Base de récurence</h4>
+                    <div lang="latex">
+                    \\
+                    \forall t, 0 \leq t \leq T, \notag \\
+                    m(0,t) = 0 \notag
+                    </div>
+                    <p></p>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-sm-12">
+                    <h4>Cas général</h4>
+                    <div lang="latex">
+                    \\
+                    \forall k, 1 \leq k \leq K, \notag \\
+                    \forall t, 0 \leq t \leq T, \notag \\
+                      m(k, t) = max \left\{
+                      \begin{array}{l}
+                        m(k-1, t-d(k-1)) + g(k-1) \\
+                        m(k-1, t) \\
+                      \end{array}
+                    \right.
+                    </div>
+                    <p></p>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-md-12">
+                    <h4>Matrice</h4>
+                    <p>
+                      Matrice <span lang="latex">M[0::K][0::T]</span> de terme général <span lang="latex">M[k][t] = m(k, t)</span>
+                    </p>
+                    <div lang="latex">
+                    M_{k,t} =
+                     \begin{pmatrix}
+                      m_{0,0} & m_{0,t} & \cdots & m_{0,T} \\
+                      m_{k,0} & m_{1,1} & \cdots & m_{1,T} \\
+                      \vdots  & \vdots  & \ddots & \vdots  \\
+                      m_{K,0} & m_{K,1} & \cdots & m_{K,T}
+                     \end{pmatrix}
+                    </div>
+                    <p>
+                      Cette matrice est générée par la fonction suivante :
+                    </p>
+                    <div id="computeM_code_container">
+                    </div>
+                    <h4>Complexité</h4>
+                    <p>Ce calcul est de complexité <span lang="latex">$\mathcal{O}(n^2)$</span></p>
+                  </div>
+                </div>
+                
+                <div class="row">
+                  <div class="col-sm-12">
+                    <h4>Affichage des sous-ensembles</h4>
+                    <p>Fonction d'affichage</p>
+                    <div id="display_result_code_container">
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-sm-12">
+                    <h4>Code</h4>
+                    <p>Lien vers le code en ligne <a href="http://repl.it/9zS/18">ICI</a></p>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          </div>
+        </div>
+
+        
+
+        <footer class="footer">
+          <p>© Harrison LEDOUX 2015</p>
+        </footer>
+
+      </div> <!-- /container -->
+
+      <script> 
+        $(function(){
+          $("#computeM_code_container").load("../static/html/spots_func_computeM.html"); 
+          $("#display_result_code_container").load("../static/html/spots_func_disp_result.html"); 
+        });
+      </script> 
+  </body>
+
+</html>

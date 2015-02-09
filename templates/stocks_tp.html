@@ -1,0 +1,206 @@
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="Harrison Ledoux">
+    <link rel="icon" href="../static/favicon.ico">
+
+    <title>Stocks compte rendu</title>
+
+    <link rel="stylesheet" href="../static/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../static/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="../static/css/jumbotron-narrow.css" >
+    <link rel="stylesheet" href="../static/css/style.css" >
+
+    <script type="text/javascript" src="../static/js/latexit.js"></script>
+    
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="../static/js/html5shiv.min.js"></script>
+      <script src="../static/js/respond.min.js"></script>
+    <![endif]-->
+
+    <script src="../static/js/jquery-1.11.2.min.js" ></script>
+    <script src="../static/js/bootstrap.min.js" ></script>
+  </head>
+  <body>
+
+      <div class="container">
+        <div class="header">
+          <nav>
+            <ul class="nav nav-pills pull-right">
+              <li role="presentation" class=""><a href="/">Accueil</a></li>
+              <li role="presentation" class="dropdown">
+                <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-expanded="false">
+                  Spots <span class="caret"></span>
+                </a>
+                <ul class="dropdown-menu" role="menu">
+                  <li><a href="/spots/tp">Compte rendu de TP</a></li>
+                  <li><a href="/spots/simulator">Simulateur</a></li>
+                </ul>
+              </li>
+              <li role="presentation" class="dropdown active">
+                <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-expanded="false">
+                  Stocks <span class="caret"></span>
+                </a>
+                <ul class="dropdown-menu" role="menu">
+                  <li><a href="/stocks/tp">Compte rendu de TP</a></li>
+                  <li><a href="/stocks/simulator">Simulateur</a></li>
+                </ul>
+              </li>
+            </ul>
+          </nav>
+          <h3 class="text-muted">Stocks compte rendu</h3>
+        </div>
+
+        <div class="row">
+          <div class="col-md-12">
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h2 class="panel-title">Répartition des stocks</h2>
+              </div>
+              <div class="panel-body">
+
+                <div class="row">
+                  <div class="col-md-12">
+                    <h4>Données du problème</h4>
+                    <p>
+                      Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum
+                    </p>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-sm-12">
+                    <h4>Base de récurence</h4>
+                    <p>A VERIFIER !!!!</p>
+                    <div lang="latex">
+                    \\
+                    \forall s, 0 \leq s \leq S, \notag \\
+                    m(0,s) = 0 \notag
+                    </div>
+                    <p></p>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-sm-12">
+                    <h4>Cas général</h4>
+                    <p>A CHANGER !!!!</p>
+                    <div lang="latex">
+                    \\
+                    \forall k, 1 \leq k \leq K, \notag \\
+                    \forall s, 0 \leq s \leq S, \notag \\
+                      m(k, s) = max \left\{
+                      \begin{array}{l}
+                        m(k-1, s-d(k-1)) + g(k-1) \\
+                        m(k-1, s) \\
+                      \end{array}
+                    \right.
+                    </div>
+                    <p></p>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-md-12">
+                    <h4>Matrice M</h4>
+                    <p>A VERIFIER !!!!</p>
+                    <p>
+                      Matrice <span lang="latex">M[0::K][0::S]</span> de terme général <span lang="latex">M[k][s] = m(k, s)</span>
+                    </p>
+                    <div lang="latex">
+                    M_{k,s} =
+                     \begin{pmatrix}
+                      m_{0,0} & m_{0,s} & \cdots & m_{0,S} \\
+                      m_{k,0} & m_{1,1} & \cdots & m_{1,S} \\
+                      \vdots  & \vdots  & \ddots & \vdots  \\
+                      m_{K,0} & m_{K,1} & \cdots & m_{K,S}
+                     \end{pmatrix}
+                    </div>
+                    <p>
+                      Cette matrice est générée par la fonction suivante :
+                    </p>
+                    <div id="computeM_code_container">
+                    </div>
+
+                    <h4>Complexité</h4>
+                    <p>A CHANGER !!!!</p>
+                    <p>Ce calcul est de complexité <span lang="latex">$\mathcal{O}(n^3)$</span></p>
+                  </div>
+                </div>
+                
+                <div class="row">
+                  <div class="col-md-12">
+                    <h4>Matrice L</h4>
+                    <p>A VERIFIER !!!!</p>
+                    <p>
+                      Matrice <span lang="latex">L[0::K][0::S]</span> de terme général <span lang="latex">L[k][s] = l(k, s)</span>
+                    </p>
+                    <div lang="latex">
+                    L_{k,s} =
+                     \begin{pmatrix}
+                      l_{0,0} & l_{0,s} & \cdots & l_{0,S} \\
+                      l_{k,0} & l_{1,1} & \cdots & l_{1,S} \\
+                      \vdots  & \vdots  & \ddots & \vdots  \\
+                      l_{K,0} & l_{K,1} & \cdots & l_{K,S}
+                     \end{pmatrix}
+                    </div>
+                    <p>
+                      Cette matrice est générée par la fonction suivante :
+                    </p>
+                    <div id="computeL_code_container">
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-sm-12">
+                    <h4>Affichage de la répartition</h4>
+                    <p>Fonction d'affichage</p>
+                    <div id="display_result_code_container">
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-sm-12">
+                    <h4>Fonctions de gain</h4>
+                    <p>exemples d'exécution</p>
+                    <div id="display_exemples_code_container">
+                    </div>
+                    <div id="display_exemples_result_code_container">
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-sm-12">
+                    <h4>Code</h4>
+                    <p>A CHANGER !!!!</p>
+                    <p>Lien vers le code en ligne <a href="#">ICI</a></p>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          </div>
+        </div>
+
+        
+
+        <footer class="footer">
+          <p>© Harrison LEDOUX 2015</p>
+        </footer>
+
+      </div> <!-- /container -->
+
+      <script> 
+        $(function(){
+        });
+      </script> 
+  </body>
+
+</html>

@@ -7,7 +7,7 @@
     <meta name="author" content="Harrison Ledoux">
     <link rel="icon" href="../static/favicon.ico">
 
-    <title>Slots Spots</title>
+    <title>Spots simulation</title>
 
     <link rel="stylesheet" href="../static/css/bootstrap.min.css">
     <link rel="stylesheet" href="../static/css/bootstrap-theme.min.css">
@@ -32,12 +32,29 @@
     <div class="container">
       <div class="header">
         <nav>
-          <ul class="nav nav-pills pull-right">
-            <li role="presentation"><a href="/">Accueil</a></li>
-            <li role="presentation" class="active"><a href="/simulator">Simulateur</a></li>
-          </ul>
-        </nav>
-        <h3 class="text-muted">Spots et Slots</h3>
+            <ul class="nav nav-pills pull-right">
+              <li role="presentation" class=""><a href="/">Accueil</a></li>
+              <li role="presentation" class="dropdown active">
+                <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-expanded="false">
+                  Spots <span class="caret"></span>
+                </a>
+                <ul class="dropdown-menu" role="menu">
+                  <li><a href="/spots/tp">Compte rendu de TP</a></li>
+                  <li><a href="/spots/simulator">Simulateur</a></li>
+                </ul>
+              </li>
+              <li role="presentation" class="dropdown">
+                <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-expanded="false">
+                  Stocks <span class="caret"></span>
+                </a>
+                <ul class="dropdown-menu" role="menu">
+                  <li><a href="/stocks/tp">Compte rendu de TP</a></li>
+                  <li><a href="/stocks/simulator">Simulateur</a></li>
+                </ul>
+              </li>
+            </ul>
+          </nav>
+        <h3 class="text-muted">Spots simulation</h3>
       </div>
 
       <div class="row">
@@ -48,7 +65,7 @@
             </div>
             <div class="panel-body">
             
-              <form id="slot_form" action="/simulator/execute">
+              <form id="slot_form" action="/spots/simulator/execute">
                 <div class="row">
                     <div class="col-xs-12 col-sm-4">
                       <h4>Slot</h4>
@@ -156,7 +173,7 @@
 
     </div> <!-- /container -->
 
-    <script src="../static/js/simulator_data_manager.js"></script>
+    <script src="../static/js/spots_simulator_data_manager.js"></script>
   </body>
 
 </html>
