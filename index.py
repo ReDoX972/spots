@@ -3,10 +3,16 @@ import json, ast
 import socket 
 import utils.log_initializer
 
-from flask import Flask, request, render_template, jsonify
+from flask import Flask, request, render_template, jsonify, send_from_directory
 from algo import slotsspots, stocks
 
 app = Flask(__name__)
+
+@app.route('/humans.txt')
+@app.route('/sitemap.xml')
+@app.route('/robots.txt')
+def static_from_root():
+    return send_from_directory(app.static_folder, request.path[1:])
 
 @app.route('/')
 def index():

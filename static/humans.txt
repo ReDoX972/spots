@@ -1,0 +1,8 @@
+/* DEV */
+	Developper : Harrison LEDOUX
+
+/* SITE */
+	Language: French
+	Doctype:HTML5
+	IDE: Sublime Text 3
+	Frameworks/languages: Jquery, Bootstrap, Python, Flask, Google charts
